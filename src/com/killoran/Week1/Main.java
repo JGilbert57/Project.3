@@ -1,179 +1,316 @@
 package com.killoran.Week1;
-
 import java.util.*;
-
-
 public class Main {
 
     public static void main(String[] args) {
-        int i = 0;
-        int Max = 1000;
-        String l[] = new String[Max];
-        Scanner userInput = new Scanner(System.in);
-        System.out.println("Hi there, would you like to make a to do list (1) yes (0) no");
-        String a = userInput.nextLine();
-        int s = Integer.parseInt(a);
-        if (s == 1) {
-            add(i, Max, l);
-        }
-        if (s == 0) {
-            System.out.println("Have a nice day");
-        }
+        ArrayList<List> objects = new ArrayList<>();
+        choice(objects);
     }
 
+    public static void choice(ArrayList<List> objects) {
+        Scanner Input = new Scanner(System.in);
+        System.out.println("Enter 1: Add a task");
+        System.out.println("Enter 2: Delete a task");
+        System.out.println("Enter 3: Edit a task");
+        System.out.println("Enter 4: List all task");
+        System.out.println("Enter 5: List by priority");
+        System.out.println("Enter 0: End program");
+        boolean gate2 = false;
+        int choice = -1;
+        while (!gate2) {
+            String userInput = Input.nextLine();
+            try {
+                choice = Integer.parseInt(userInput);
+                if (choice <= 5 & choice > -1) {
+                    gate2 = true;
+                } else {
+                    System.out.println("Please Enter a valid number (0-5)");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Please Enter a valid number (0-5)");
+            }
+        }
 
-    public static void add(int i, int Max, String[] l) {
-        Max += 1;
-        Scanner userInput = new Scanner(System.in);
-        System.out.println("What is your task");
-        l[i] = userInput.nextLine();
-        i = i + 1;
-        System.out.println("If you would like to create another task(1)");
-        System.out.println("If you would like to remove a task (2)");
-        System.out.println("If you would like to update a task(3)");
-        System.out.println("If you would like to display all tasks (4)");
-        System.out.println("If you would like to exit the program (5)");
-        int choice = userInput.nextInt();
         if (choice == 1) {
-            add(i, Max, l);
+            add(objects);
         }
         if (choice == 2) {
-            remove(i, Max, l);
+            delete(objects);
         }
         if (choice == 3) {
-            update(i, Max, l);
+            update(objects);
         }
         if (choice == 4) {
-            display(i, Max, l);
+            list(objects);
         }
         if (choice == 5) {
+            priority(objects);
+        }
+        if (choice == 0) {
             end();
         }
     }
 
-    public static void remove(int i, int Max, String[] l) {
-        Scanner userInput = new Scanner(System.in);
-        for (int j = 0; j < l.length; j++) {
-            if (l[j] == null) {
-                continue;
-            } else {
-                System.out.println(j + l[j]);
-            }
-        }
-        System.out.println("Which to do would you like to delete please enter the number assign to the task");
-        int removeIndex = userInput.nextInt();
-        for (int n = removeIndex; n < l.length - 1; n++) {
-            l[n] = l[n + 1];
-        }
-        System.out.println("If you would like to create another task(1)");
-        System.out.println("If you would like to remove a task (2)");
-        System.out.println("If you would like to update a task(3)");
-        System.out.println("If you would like to display all tasks (4)");
-        System.out.println("If you would like to exit the program (5)");
-        int choice = userInput.nextInt();
-        if (choice == 1) {
-            add(i, Max, l);
-        }
-        if (choice == 2) {
-            remove(i, Max, l);
-        }
-        if (choice == 3) {
-            update(i,Max,l);
-        }
-        if (choice == 4) {
-            display(i, Max, l);
-        }
-        if(choice ==5){
-            end();
-        }
-    }
-
-    public static void update(int i, int Max, String[] l) {
-        Scanner userInput = new Scanner(System.in);
+    public static void add(ArrayList<List> objects) {
         Scanner Input = new Scanner(System.in);
-        for (int j = 0; j < l.length; j++) {
-            if (l[j] == null) {
-                continue;
-            } else {
-                System.out.println(j + l[j]);
-            }
-        }
-        System.out.println("Please enter the assigned number to the task you wish to update");
-        int t = userInput.nextInt();
-        System.out.println("Please type your task update below for item " + t);
-        String kl = Input.nextLine();
-        l[t] = kl;
-        System.out.println("If you would like to create another task(1)");
-        System.out.println("If you would like to remove a task (2)");
-        System.out.println("If you would like to update a task(3)");
-        System.out.println("If you would like to display all tasks (4)");
-        System.out.println("If you would like to exit the program (5)");
-        int choice = userInput.nextInt();
-        if(choice ==1)
+        String decision = "";
+        while (!decision.equals("END")) {
+            System.out.println("What is the title of your task");
+            double test = 0;
+            String taskTit = "";
+            boolean gate4 = false;
+            while (!gate4) {
+                taskTit = Input.nextLine();
+                try {
+                    test = Double.parseDouble(taskTit);
+                    System.out.println("Please enter a valid String for title");
 
-        {
-            add(i, Max, l);
-        }
-        if(choice ==2)
-
-        {
-            remove(i, Max, l);
-        }
-        if(choice ==3)
-            update(i, Max, l);
-        {
-
-        }
-        if(choice ==4) {
-            display(i, Max, l);
-        }
-        if(choice==5){
-            end();
-        }
-
-    }
-    public static void display(int i, int Max, String[] l) {
-        Scanner userInput = new Scanner(System.in);
-        int decision = 1;
-        while (decision != 0) {
-            for (int j = 0; j < l.length; j++) {
-                if (l[j] == null) {
-                    continue;
-                } else {
-                    System.out.println(j + l[j]);
+                } catch (NumberFormatException e) {
+                    gate4 = true;
                 }
             }
-            System.out.println("Press (0) to continue the program");
-            decision = userInput.nextInt();
+            System.out.println("What is the description of your task");
+            String description = "";
+            boolean gate5 = false;
+            while (!gate5) {
+                description = Input.nextLine();
+                try {
+                    test = Double.parseDouble(description);
+                    System.out.println("Please enter a valid string for a description");
+                } catch (NumberFormatException e) {
+                    gate5 = true;
+                }
+            }
+            System.out.println("What is the task priority 0-5, 5 being the highest priority");
+            boolean gate6 = false;
+            int priority = 0;
+            while (!gate6) {
+                String userInput = Input.nextLine();
+                try {
+                    priority = Integer.parseInt(userInput);
+                    if (priority <= 5 & priority > -1) {
+                        gate6 = true;
+                    } else {
+                        System.out.println("Please enter a valid priority value(0-5)");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Please enter a valid priority value(0-5)");
+                }
+            }
+            List task = new List(taskTit, description, priority);
+            objects.add(task);
+            System.out.println("Type END if you do not wish to create another task");
+            decision = Input.nextLine();
         }
-        System.out.println("If you would like to create another task(1)");
-        System.out.println("If you would like to remove a task (2)");
-        System.out.println("If you would like to update a task(3)");
-        System.out.println("If you would like to display all tasks (4)");
-        System.out.println("If you would like to exit the program (5)");
-        int choice = userInput.nextInt();
-        if (choice == 1) {
-            add(i, Max, l);
+        choice(objects);
+    }
+
+    public static void delete(ArrayList<List> objects) {
+        Scanner input = new Scanner(System.in);
+        String decision = "";
+        while (!decision.equals("END")) {
+            if (objects.isEmpty() != true) {
+                int i = 0;
+                for (List task : objects) {
+                    if (task == null) {
+                        continue;
+                    } else {
+                        i++;
+                        System.out.println(i + ")" + task.toString());
+                    }
+                }
+                System.out.println("Enter the corresponding number to the task you wish to delete");
+                String userInput;
+                int choice = -1;
+                boolean gate2 = false;
+                while (gate2 == false) {
+                    userInput = input.nextLine();
+                    try {
+                        choice = Integer.parseInt(userInput);
+                        if (choice < objects.size() + 1 & choice > 0) {
+                            gate2 = true;
+                        } else {
+                            System.out.println("Please enter a valid task assignment #");
+
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Please enter a valid task assignment #");
+                    }
+                }
+                objects.add(null);
+                int j = 0;
+                try {
+                    for (List task : objects) {
+                        j++;
+                        if (j == choice) {
+                            objects.remove(task);
+                            objects.remove(objects.size() - 1);
+                        }
+                    }
+                } catch (Exception e) {
+                }
+                System.out.println("To Finish Removing Tasks Enter END");
+                System.out.println("If you wish to continue Enter anything you like");
+                decision = input.nextLine();
+            } else {
+                System.out.println("You cannot delete zero tasks press Enter to Continue");
+                input.nextLine();
+                choice(objects);
+            }
         }
-        if (choice == 2) {
-            remove(i, Max, l);
+        choice(objects);
+    }
+
+    public static void update(ArrayList<List> objects) {
+        Scanner Input = new Scanner(System.in);
+        String decision = "";
+        while (!decision.equals("END")) {
+            if (!objects.isEmpty()) {
+                int j = 0;
+                for (List task : objects) {
+                    j++;
+                    System.out.println(j + ") " + task.toString());
+                }
+                System.out.println("Enter the corresponding number with the task you'd like to update");
+                int i = 0;
+                int choice =0;
+                boolean gate9 = false;
+                while(!gate9){
+                    String test3 = Input.nextLine();
+                    try{
+                        choice =  Integer.parseInt(test3);
+                        if(choice < objects.size() + 1 & choice > 0){
+                            gate9 = true;
+                        }
+                    }catch(Exception e){
+                        System.out.println("Enter a valid task assignment number");
+                    }
+                }
+                for (List object : objects) {
+                    i++;
+                    if (choice == i) {
+                        Scanner input = new Scanner(System.in);
+                        System.out.println("What is your updated title");
+                        boolean gate7 = false;
+                        String title = "";
+                        while (!gate7) {
+                            title = input.nextLine();
+                            try {
+                                double test = Double.parseDouble(title);
+                                System.out.println("Please enter a valid string for title");
+                            } catch (NumberFormatException e) {
+                                gate7 = true;
+                            }
+                        }
+                        object.setTitle(title);
+                        System.out.println("What is your updated description");
+                        String desc = "";
+                        boolean gate8 = false;
+                        while (!gate8) {
+                            desc = input.nextLine();
+                            try {
+                                double test2 = Double.parseDouble(desc);
+                                System.out.println("Please enter a valid string for description.");
+                            } catch (NumberFormatException e) {
+                                gate8 = true;
+                            }
+                        }
+                        object.setDecrip(desc);
+                        System.out.println("What is your updated priority 0-5");
+                        int priority = 0;
+                        String pri;
+                        boolean gate10 = false;
+                        while (!gate10) {
+                            try {
+                                pri = input.nextLine();
+                                priority = Integer.parseInt(pri);
+                                if (priority <= 5 & priority > -1) {
+                                    gate10 = true;
+                                } else {
+                                    System.out.println("Please enter a valid integer for priority (0-5)");
+                                }
+                            } catch (NumberFormatException e) {
+                                System.out.println("Please enter a valid integer for priority (0-5)");
+                            }
+                        }
+                        object.setPriority(priority);
+                    }
+                }
+                Scanner uInput = new Scanner(System.in);
+                System.out.println("Enter END to stop updating tasks. Press Enter to continue");
+                decision = uInput.nextLine();
+            } else {
+                System.out.println("You can not update an empty list. Press enter to continue");
+                Input.nextLine();
+                choice(objects);
+            }
         }
-        if (choice == 3) {
-            update(i,Max,l);
-        }
-        if (choice == 4) {
-            display(i, Max, l);
-        }
-        if (choice ==5 ){
-            end();
+        choice(objects);
+    }
+
+    public static void list(ArrayList<List> objects) {
+        Scanner Input = new Scanner(System.in);
+        int i = 0;
+        if (!objects.isEmpty()) {
+            i++;
+            for (List task : objects) {
+                System.out.println(i + ") " + task.toString());
+            }
+            System.out.println("Press Enter to continue with the program");
+            Input.nextLine();
+            choice(objects);
+        } else {
+            System.out.println("You can not display an empty list of tasks. Press Enter to continue the program");
+            Input.nextLine();
+            choice(objects);
         }
     }
+
+    public static void priority(ArrayList<List> objects) {
+        Scanner Input = new Scanner(System.in);
+        String decision = "";
+        while (!decision.equals("END")) {
+            if (!objects.isEmpty()) {
+                System.out.println("What priority 0-5 would you like to sort by");
+                int search = -1;
+                boolean gate3 = false;
+                while (!gate3) {
+                    String choice = Input.nextLine();
+                    try {
+                        search = Integer.parseInt(choice);
+                        if (search <= 5 & search > -1) {
+                            gate3 = true;
+                        } else {
+                            System.out.println("Please enter a valid priority value(0-5)");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Please enter a valid priority value(0-5)");
+                    }
+                }
+                int counter = 0;
+                for (List task : objects) {
+                    if (search == task.getPriority()) {
+                        System.out.println(task.toString());
+                        counter++;
+                    }
+                }
+                if (counter == 0) {
+                    System.out.println("There seems to be no task with that priority");
+                }
+                System.out.println("Enter END to stop sorting by priority. To continue press Enter");
+                decision = Input.nextLine();
+            } else {
+                System.out.println("You cannot sort an empty list. Press Enter to continue with the program ");
+                Input.nextLine();
+                choice(objects);
+            }
+        }
+        choice(objects);
+    }
+
     public static void end() {
-        System.out.println("Have a nice day");
+        System.exit(0);
     }
 }
-
-
-
 
 
