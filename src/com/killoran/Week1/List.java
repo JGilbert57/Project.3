@@ -1,8 +1,10 @@
 package com.killoran.Week1;
+
+
 /**
  * Created by 111618 on 2/27/2019.
  */
-public class List {
+public class List implements Comparable<List> {
     private String Title;
     private String Decrip;
     private int priority;
@@ -39,6 +41,16 @@ public class List {
 
     @Override
     public String toString() {
-        return  Title + ": " + Decrip + " - " +"priority: " + priority;
+        return Title + ": " + Decrip + " - " + "priority: " + priority;
     }
+
+    @Override
+    public int compareTo(List o) {
+        if (!Title.equals(o.Title)) {
+            return Title.compareTo(o.Title);
+        } else {
+            return Title.compareTo(o.Title);
+        }
+    }
+
 }
